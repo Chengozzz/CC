@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para Dani  | Corazón de Amor</title>
+    <title>Para Dani ❤️ | Corazón de Amor</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -150,8 +150,8 @@
         <h1 class="text-4xl sm:text-6xl font-bold tracking-tight glow-title text-white mb-2 font-handwriting">
             Un Corazón para Dani <span class="text-romantic-accent">❤️</span>
         </h1>
-        <p class="text-romantic-soft/80 text-xs sm:text-sm max-w-md mx-auto">
-            Acércate y observa detenidamente: cada latido y cada contorno de este corazón está escrito con un <span class="text-romantic-rose font-mono font-bold">"te quiero dani"</span> infinito.
+        <p class="text-romantic-soft/80 text-xs sm:text-sm max-w-md mx-auto italic">
+            En todos los universos Gwen Stacy se enamora de Spider-Man, y en todos los universos eso nunca termina bien
         </p>
     </header>
 
@@ -318,12 +318,6 @@
             <i class="fa-solid fa-envelope-open-text text-romantic-rose text-lg"></i>
             <span>Leer Carta para Dani</span>
         </button>
-
-        <!-- Botón Música Romántica -->
-        <button id="musicBtn" onclick="toggleAudio()" class="w-full sm:w-auto px-4 py-3.5 rounded-2xl glass-card hover:bg-romantic-card/90 text-romantic-rose border border-romantic-rose/30 transition-all flex items-center justify-center gap-2">
-            <i id="musicIcon" class="fa-solid fa-music"></i>
-            <span id="musicText" class="text-xs font-semibold">Música</span>
-        </button>
     </section>
 
     <!-- Modal de Carta para Dani -->
@@ -345,13 +339,10 @@
             <!-- Texto de la dedicatoria -->
             <div class="bg-romantic-bg/80 rounded-2xl p-4 sm:p-5 border border-romantic-rose/20 text-romantic-soft text-sm sm:text-base leading-relaxed space-y-3 font-sans max-h-[50vh] overflow-y-auto" id="dedicationText">
                 <p>
-                    Si abres bien los ojos y miras este corazón, te darás cuenta de que no existen líneas ni bordes ordinarios: está construido palabra por palabra, letra por letra, con un constante e infinito <strong class="text-romantic-rose">"te quiero dani"</strong>.
+                    Hola dani es el primer cumpleaños que estoy en tu vida y no quiero sea el ultimo, la verdad es que lo que estaba haciendo era otra cosa pero nome dio tiempo de terminarlo. Podria decirte mil cosas en este texto pero prefiero demostrarlo con acciones aun a la distancia, eres una increible persona. Bueno sobra decir cosas lindas de ti porque siempre que puedo te las digo y ojala seas consiente de cuan especial te has vuelto para mi.
                 </p>
-                <p>
-                    Cada latido de esta página representa lo fácil que es quererte y lo bonito que es tenerte en mi vida. Eres mi rincón favorito, mi sonrisa automática y la razón de tantos momentos felices.
-                </p>
-                <p class="font-semibold text-romantic-rose text-center pt-2">
-                    ¡Te quiero con todo mi corazón, Dani! ❤️
+                <p class="pt-2">
+                    <span class="text-[#ff758f] font-bold text-lg drop-shadow-[0_0_8px_rgba(255,117,143,0.8)]">Te quiero dani</span>, Chengocito 23
                 </p>
             </div>
 
@@ -538,7 +529,7 @@
         }
 
         function copyDedication() {
-            const textToCopy = `Dani: Si miras detenidamente este corazón, te darás cuenta de que está escrito palabra por palabra con un "te quiero dani" infinito. Cada latido representa lo bonito que es tenerte en mi vida. ¡Te quiero con todo mi corazón! ❤️`;
+            const textToCopy = `Hola dani es el primer cumpleaños que estoy en tu vida y no quiero sea el ultimo, la verdad es que lo que estaba haciendo era otra cosa pero nome dio tiempo de terminarlo. Podria decirte mil cosas en este texto pero prefiero demostrarlo con acciones aun a la distancia, eres una increible persona. Bueno sobra decir cosas lindas de ti porque siempre que puedo te las digo y ojala seas consiente de cuan especial te has vuelto para mi. \n\nTe quiero dani, Chengocito 23`;
             
             const tempTextArea = document.createElement('textarea');
             tempTextArea.value = textToCopy;
@@ -573,83 +564,6 @@
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
-        }
-
-        // ==========================================
-        // 4. MÚSICA AMBIENTAL (WEB AUDIO API)
-        // ==========================================
-        let audioCtx = null;
-        let isPlaying = false;
-        let musicInterval = null;
-
-        function toggleAudio() {
-            const icon = document.getElementById('musicIcon');
-            const text = document.getElementById('musicText');
-
-            if (!isPlaying) {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
-                
-                isPlaying = true;
-                icon.className = "fa-solid fa-pause animate-bounce text-romantic-accent";
-                text.innerText = "Pausar";
-                startRomanticMelody();
-                showToast("🎵 Melodía dulce sonando para Dani");
-            } else {
-                isPlaying = false;
-                icon.className = "fa-solid fa-music";
-                text.innerText = "Música";
-                if (musicInterval) clearInterval(musicInterval);
-            }
-        }
-
-        function playNote(freq, duration = 1.5) {
-            if (!audioCtx || !isPlaying) return;
-
-            try {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-
-                osc.type = 'sine'; // Tono dulce estilo cajita de música
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-
-                gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-                gain.gain.linearRampToValueAtTime(0.1, audioCtx.currentTime + 0.08);
-                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch(e) {
-                console.log(e);
-            }
-        }
-
-        function startRomanticMelody() {
-            // Escala mayor armónica relajante
-            const notes = [261.63, 329.63, 392.00, 440.00, 523.25, 659.25, 783.99];
-            let step = 0;
-
-            musicInterval = setInterval(() => {
-                if (!isPlaying) return;
-                
-                const note = notes[Math.floor(Math.random() * notes.length)];
-                playNote(note, 2.2);
-
-                if (step % 2 === 0) {
-                    setTimeout(() => {
-                        playNote(notes[Math.floor(Math.random() * 3)], 1.8);
-                    }, 350);
-                }
-
-                step++;
-            }, 750);
         }
     </script>
 </body>
